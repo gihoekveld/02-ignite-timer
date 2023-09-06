@@ -8,13 +8,15 @@ import {
 import { Cycle, cyclesReducer } from '../reducers/cycles/reducer'
 import {
   addNewCycleAction,
-  interruptCurrentCycle,
+  deleteCycleAction,
+  interruptCurrentCycleAction,
   markCurrentCycleAdFinishedAction,
 } from '../reducers/cycles/actions'
 import { differenceInSeconds } from 'date-fns'
 
 interface CreateCycleData {
   task: string
+  category: string
   minutesAmount: number
 }
 interface CycleContextType {
@@ -26,6 +28,7 @@ interface CycleContextType {
   setSecondsPassed: (seconds: number) => void
   createNewCycle: (data: CreateCycleData) => void
   interruptCycle: () => void
+  deleteCycle: (id: string) => void
 }
 
 export const CyclesContext = createContext({} as CycleContextType)
@@ -81,6 +84,7 @@ export function CyclesContextProvider({
     const newCycle: Cycle = {
       id,
       task: data.task,
+      category: data.category,
       minutesAmount: data.minutesAmount,
       startDate: new Date(),
     }
@@ -91,7 +95,11 @@ export function CyclesContextProvider({
   }
 
   function interruptCycle() {
-    dispatch(interruptCurrentCycle())
+    dispatch(interruptCurrentCycleAction())
+  }
+
+  function deleteCycle(id: string) {
+    dispatch(deleteCycleAction(id))
   }
 
   return (
@@ -105,6 +113,7 @@ export function CyclesContextProvider({
         setSecondsPassed,
         createNewCycle,
         interruptCycle,
+        deleteCycle,
       }}
     >
       {children}

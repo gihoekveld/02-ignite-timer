@@ -19,10 +19,8 @@ export function NewCycleForm() {
       />
 
       <datalist id="task-suggestions">
-        <option value="Projeto 1" />
-        <option value="Projeto 2" />
-        <option value="Projeto 3" />
-        <option value="Projeto 4" />
+        <option value="Excofy" />
+        <option value="Aventurebox" />
       </datalist>
 
       <label htmlFor="minutesAmount">durante</label>
@@ -36,8 +34,21 @@ export function NewCycleForm() {
         max={60}
         {...register('minutesAmount', { valueAsNumber: true })}
       />
+      <span>minutos</span>
 
-      <span>minutos.</span>
+      <label htmlFor="category">para o</label>
+      <TaskInput
+        id="category"
+        list="category-suggestions"
+        placeholder="Categoria"
+        disabled={!!activeCycle}
+        {...register('category')}
+      />
+
+      <datalist id="category-suggestions">
+        <option value="Trabalho" />
+        <option value="Rocketseat" />
+      </datalist>
     </FormContainer>
   )
 }

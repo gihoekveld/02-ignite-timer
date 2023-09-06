@@ -4,6 +4,7 @@ import { ActionTypes } from './actions'
 export interface Cycle {
   id: string
   task: string
+  category: string
   minutesAmount: number
   startDate: Date
   interruptedDate?: Date
@@ -48,6 +49,19 @@ export function cyclesReducer(state: CyclesState, action: any) {
       return produce(state, (draft) => {
         draft.activeCycleId = null
         draft.cycles[currentCycleIndex].finishedDate = new Date()
+      })
+    }
+    case ActionTypes.DELETE_CYCLE: {
+      const cycleIndex = state.cycles.findIndex(
+        (cycle) => cycle.id === action.payload.id,
+      )
+
+      if (cycleIndex < 0) {
+        return state
+      }
+
+      return produce(state, (draft) => {
+        draft.cycles.splice(cycleIndex, 1)
       })
     }
     default:

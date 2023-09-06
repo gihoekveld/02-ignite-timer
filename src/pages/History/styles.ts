@@ -49,7 +49,7 @@ export const HistoryList = styled.div`
       line-height: 1.6;
 
       &:first-child {
-        width: 50%;
+        width: 30%;
         padding-left: 1.5rem;
       }
 
@@ -82,5 +82,22 @@ export const Status = styled.span<StatusProps>`
     height: 0.5rem;
     border-radius: 50%;
     background: ${(props) => props.theme[STATUS_COLORS[props.statusColor]]};
+  }
+`
+
+export const TrashIcon = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: ${({ theme }) => theme['gray-100']};
+  background-color: ${({ theme }) => theme['gray-600']};
+  border-radius: 4px;
+  padding: 4px 0;
+  transition: color 0.2s;
+  width: 24px;
+
+  &:hover {
+    color: ${({ theme }) => theme['red-300']};
   }
 `
